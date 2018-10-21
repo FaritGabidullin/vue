@@ -1,0 +1,107 @@
+<html>
+
+<body>
+    <div id="app">
+        <p>{{ title }}</p>
+        <button type="button" v-on:click="ToggleShowTable">
+            Показать/скрыть таблицу
+        </button>
+        <table border=1px v-if="showtable">
+            <caption>
+                {{caption}}
+            </caption>
+            <tr>
+                <td>
+                    Имя
+                </td>
+                <td>
+                    Фамилия
+                </td>
+                <td>
+                    Отчество
+                </td>
+                <td>
+                    Аватар
+                </td>
+            </tr>
+            <tr v-for="(item) in table" :key="index">
+                <td>
+                    {{item.firstname}}
+                </td>
+                <td>
+                    {{item.secondname}}
+                </td>
+                <td>
+                    {{item.patronymic}}
+                </td>
+                <td>
+                    <span v-if="!item.avatar">
+                        <img src="./images/default.jpg">
+                    </span>
+
+                    <img v-else v-bind:src="item.avatar">
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>"
+<script>
+    let app = new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                table: [
+                    {
+                        firstname: 'Иван',
+                        secondname: 'Иванов',
+                        patronymic: 'Иванович',
+                        avatar: './images/1.jpg'
+                    },
+                    {
+                        firstname: 'Максим',
+                        secondname: 'Сидоров',
+                        patronymic: 'Федорович',
+                        avatar: './images/2.jpg'
+                    },
+                    {
+                        firstname: 'Сергей',
+                        secondname: 'Емельянов',
+                        patronymic: 'Александрович'
+
+                    },
+                    {
+                        firstname: 'Владимир',
+                        secondname: 'Сафронов',
+                        patronymic: 'Владиславович',
+                        avatar: './images/3.jpg'
+                    },
+                    {
+                        firstname: 'Петр',
+                        secondname: 'Антипов',
+                        patronymic: 'Андреевич',
+                        avatar: './images/4.jpg'
+                    },
+                ],
+                title: 'Тестовое задание по Vue.',
+                caption: 'Пользователи',
+                showtable: true,
+            }
+            }, 
+            methods: {
+                ToggleShowTable: function(){
+                    return this.showtable = !this.showtable;    
+                },
+                TableRowLength: function () {
+                    return 'Пользователи'//+this.table.row.length;
+                },
+        }
+    });
+
+</script>
+
+
+</html>
