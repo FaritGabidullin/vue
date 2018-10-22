@@ -6,9 +6,9 @@
         <button type="button" v-on:click="ToggleShowTable">
             Показать/скрыть таблицу
         </button>
-        <table border=1px v-if="showtable">
-            <caption>
-                {{caption}}
+        <table v-bind:border="TableStyleBorder" v-if="showtable">
+            <caption> 
+                    {{table.length}}
             </caption>
             <tr>
                 <td>
@@ -87,16 +87,13 @@
                     },
                 ],
                 title: 'Тестовое задание по Vue.',
-                caption: 'Пользователи',
                 showtable: true,
+                TableStyleBorder: '1px',
             }
             }, 
             methods: {
                 ToggleShowTable: function(){
                     return this.showtable = !this.showtable;    
-                },
-                TableRowLength: function () {
-                    return 'Пользователи'//+this.table.row.length;
                 },
         }
     });
