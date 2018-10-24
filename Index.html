@@ -1,14 +1,25 @@
 <html>
 
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Список пользователей</title>
+</head>
+<style>
+    [v-cloak]{
+    display: none;
+}
+</style>
+
 <body>
-    <div id="app">
+    <div id="app" v-cloak>
         <p>{{ title }}</p>
         <button type="button" v-on:click="ToggleShowTable">
             Показать/скрыть таблицу
         </button>
-        <table v-bind:border="TableStyleBorder" v-if="showtable">
-            <caption> 
-                    {{table.length}}
+        <table v-if="showtable">
+            <caption>
+                {{TableRowCount()}}
             </caption>
             <tr>
                 <td>
@@ -24,7 +35,7 @@
                     Аватар
                 </td>
             </tr>
-            <tr v-for="(item) in table" :key="index">
+            <tr v-for="(item) in table" :key="item.id">
                 <td>
                     {{item.firstname}}
                 </td>
@@ -35,10 +46,7 @@
                     {{item.patronymic}}
                 </td>
                 <td>
-                    <span v-if="!item.avatar">
-                        <img src="./images/default.jpg">
-                    </span>
-
+                    <img v-if="!item.avatar" src="./images/default.jpg">
                     <img v-else v-bind:src="item.avatar">
                 </td>
             </tr>
@@ -56,30 +64,35 @@
             return {
                 table: [
                     {
+                        id: '1',
                         firstname: 'Иван',
                         secondname: 'Иванов',
                         patronymic: 'Иванович',
                         avatar: './images/1.jpg'
                     },
                     {
+                        id: '2',
                         firstname: 'Максим',
                         secondname: 'Сидоров',
                         patronymic: 'Федорович',
                         avatar: './images/2.jpg'
                     },
                     {
+                        id: '3',
                         firstname: 'Сергей',
                         secondname: 'Емельянов',
                         patronymic: 'Александрович'
 
                     },
                     {
+                        id: '4',
                         firstname: 'Владимир',
                         secondname: 'Сафронов',
                         patronymic: 'Владиславович',
                         avatar: './images/3.jpg'
                     },
                     {
+                        id: '5',
                         firstname: 'Петр',
                         secondname: 'Антипов',
                         patronymic: 'Андреевич',
@@ -88,13 +101,15 @@
                 ],
                 title: 'Тестовое задание по Vue.',
                 showtable: true,
-                TableStyleBorder: '1px',
             }
-            }, 
-            methods: {
-                ToggleShowTable: function(){
-                    return this.showtable = !this.showtable;    
-                },
+        },
+        methods: {
+            ToggleShowTable: function () {
+                this.showtable = !this.showtable;
+            },
+            TableRowCount: function () {
+                return this.table.length;
+            },
         }
     });
 
