@@ -2,7 +2,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
     <title>Список пользователей</title>
 </head>
 <style>
@@ -15,11 +16,11 @@
     <div id="app" v-cloak>
         <p>{{ title }}</p>
         <button type="button" v-on:click="ToggleShowTable">
-            Показать/скрыть таблицу
+            {{toggleMethodTitle}}
         </button>
         <table v-if="showtable">
             <caption>
-                {{TableRowCount()}}
+                {{TableRowCount}}
             </caption>
             <tr>
                 <td>
@@ -35,7 +36,7 @@
                     Аватар
                 </td>
             </tr>
-            <tr v-for="(item) in table" :key="item.id">
+            <tr v-for="item in table" :key="item.id">
                 <td>
                     {{item.firstname}}
                 </td>
@@ -46,8 +47,7 @@
                     {{item.patronymic}}
                 </td>
                 <td>
-                    <img v-if="!item.avatar" src="./images/default.jpg">
-                    <img v-else v-bind:src="item.avatar">
+                    <img v-bind:src="!item.avatar ? './images/default.jpg' : item.avatar">
                 </td>
             </tr>
 
@@ -107,9 +107,15 @@
             ToggleShowTable: function () {
                 this.showtable = !this.showtable;
             },
+           
+        },
+        computed: {
             TableRowCount: function () {
                 return this.table.length;
             },
+            toggleMethodTitle: function () {
+                return this.showtable ? "Скрыть таблицу " : "Показать таблицу"; 
+            }
         }
     });
 
